@@ -81,7 +81,6 @@
 	desc = "A sharp, metal hook what sticks into things."
 	icon_state = "hook_knife"
 	item_state = "hook_knife"
-	embed_mult = 1.5 //This is designed for embedding
 
 /obj/item/weapon/material/knife/ritual
 	name = "ritual knife"

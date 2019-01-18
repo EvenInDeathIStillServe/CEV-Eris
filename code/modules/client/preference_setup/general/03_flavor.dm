@@ -1,5 +1,5 @@
 /datum/preferences
-	var/flavor_text
+	var/list/flavor_text        = list()
 	var/list/flavour_texts_robot = list()
 
 /datum/category_item/player_setup_item/physical/flavor
@@ -7,25 +7,23 @@
 	sort_order = 3
 
 /datum/category_item/player_setup_item/physical/flavor/load_character(var/savefile/S)
-	from_file(S["flavor_text"], pref.flavor_text)
+	S["flavor_text"]	>> pref.flavor_text
 
 	//Flavour text for robots.
-	from_file(S["flavour_texts_robot_Default"], pref.flavour_texts_robot["Default"])
+	S["flavour_texts_robot_Default"] >> pref.flavour_texts_robot["Default"]
 	for(var/module in robot_modules)
-		from_file(S["flavour_texts_robot_[module]"], pref.flavour_texts_robot[module])
+		S["flavour_texts_robot_[module]"] >> pref.flavour_texts_robot[module]
 
 /datum/category_item/player_setup_item/physical/flavor/save_character(var/savefile/S)
-	to_file(S["flavor_text"], pref.flavor_text)
+	S["flavor_text"]	<< pref.flavor_text
 
-	to_file(S["flavour_texts_robot_Default"], pref.flavour_texts_robot["Default"])
+	S["flavour_texts_robot_Default"] << pref.flavour_texts_robot["Default"]
 	for(var/module in robot_modules)
-		to_file(S["flavour_texts_robot_[module]"], pref.flavour_texts_robot[module])
+		S["flavour_texts_robot_[module]"] << pref.flavour_texts_robot[module]
 
 /datum/category_item/player_setup_item/physical/flavor/sanitize_character()
-	if(!pref.flavor_text)
-		pref.flavor_text = ""
-	if(!istype(pref.flavour_texts_robot))
-		pref.flavour_texts_robot = list()
+	if(!istype(pref.flavor_text))        pref.flavor_text = list()
+	if(!istype(pref.flavour_texts_robot)) pref.flavour_texts_robot = list()
 
 /datum/category_item/player_setup_item/physical/flavor/content(var/mob/user)
 	. = list()
@@ -38,8 +36,7 @@
 	if(href_list["flavor_text"] && href_list["flavor_text"] == "open")
 		var/msg = sanitize(input_cp1251(usr,"Give a general description of your character. This will be shown regardless of clothing, and may include OOC notes and preferences.","Flavor Text", pref.flavor_text, "message"), extra = 0)
 		if(CanUseTopic(user))
-			if(msg)
-				pref.flavor_text = msg
+			pref.flavor_text = msg
 		return TOPIC_HANDLED
 
 	else if(href_list["flavour_text_robot"])

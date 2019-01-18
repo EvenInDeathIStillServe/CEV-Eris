@@ -8,7 +8,6 @@
 	throw_range = 15
 	sharp = 1
 	edge =  1
-	embed_mult = 5 //We want these to embed
 
 /obj/item/weapon/material/star/New()
 	..()

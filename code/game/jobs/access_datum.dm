@@ -335,7 +335,7 @@
 	desc = "RC Announcements"
 	region = ACCESS_REGION_COMMAND
 
-/var/const/access_keycard_auth = 60
+/var/const/access_keycard_auth = 60 //Used for events which require at least two people to confirm them
 /datum/access/keycard_auth
 	id = access_keycard_auth
 	desc = "Keycode Auth. Device"

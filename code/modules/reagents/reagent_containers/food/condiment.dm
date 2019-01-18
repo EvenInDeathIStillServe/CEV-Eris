@@ -22,7 +22,8 @@
 		return
 
 	attack(var/mob/M as mob, var/mob/user as mob, var/def_zone)
-		standard_feed_mob(user, M)
+		if(standard_feed_mob(user, M))
+			return
 
 	afterattack(var/obj/target, var/mob/user, var/proximity)
 		if(!proximity)
@@ -121,29 +122,36 @@
 	name = "Universal Enzyme"
 	desc = "Used in cooking various dishes."
 	icon_state = "enzyme"
-	preloaded = list("enzyme" = 50)
+	New()
+		..()
+		reagents.add_reagent("enzyme", 50)
 
 /obj/item/weapon/reagent_containers/food/condiment/sugar
-	preloaded = list("sugar" = 50)
+	New()
+		..()
+		reagents.add_reagent("sugar", 50)
 
-//Seperate from above since it's a small shaker rather then a large one.
-/obj/item/weapon/reagent_containers/food/condiment/saltshaker
-	name = "salt shaker"
+/obj/item/weapon/reagent_containers/food/condiment/saltshaker		//Seperate from above since it's a small shaker rather then
+	name = "Salt Shaker"											//	a large one.
 	desc = "Salt. From space oceans, presumably."
 	icon_state = "saltshakersmall"
 	possible_transfer_amounts = list(1,20) //for clown turning the lid off
 	amount_per_transfer_from_this = 1
 	volume = 20
-	preloaded = list("sodiumchloride" = 20)
+	New()
+		..()
+		reagents.add_reagent("sodiumchloride", 20)
 
 /obj/item/weapon/reagent_containers/food/condiment/peppermill
-	name = "pepper mill"
+	name = "Pepper Mill"
 	desc = "Often used to flavor food or make people sneeze."
 	icon_state = "peppermillsmall"
 	possible_transfer_amounts = list(1,20) //for clown turning the lid off
 	amount_per_transfer_from_this = 1
 	volume = 20
-	preloaded = list("blackpepper" = 20)
+	New()
+		..()
+		reagents.add_reagent("blackpepper", 20)
 
 /obj/item/weapon/reagent_containers/food/condiment/flour
 	name = "flour sack"
@@ -151,5 +159,8 @@
 	icon = 'icons/obj/food.dmi'
 	icon_state = "flour"
 	item_state = "flour"
-	preloaded = list("flour" = 30)
-
+	New()
+		..()
+		reagents.add_reagent("flour", 30)
+		src.pixel_x = rand(-10.0, 10)
+		src.pixel_y = rand(-10.0, 10)

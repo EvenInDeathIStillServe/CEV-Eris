@@ -366,9 +366,9 @@
 		var/msg = trim(replacetext(flavor_text, "\n", " "))
 		if(!msg) return ""
 		if(lentext(msg) <= 40)
-			return "<font color='blue'>[russian_to_cp1251(msg)]</font>"
+			return "\blue [msg]"
 		else
-			return "<font color='blue'>[copytext_preserve_html(russian_to_cp1251(msg), 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a></font>"
+			return "\blue [copytext_preserve_html(msg, 1, 37)]... <a href='byond://?src=\ref[src];flavor_more=1'>More...</a>"
 
 /*
 /mob/verb/help()

@@ -26,15 +26,17 @@
 		user << "\red If you put anything else on \the [src] it's going to collapse."
 		return
 	else if(istype(W,/obj/item/weapon/material/shard))
-		user << SPAN_NOTICE("You hide [W] in \the [src].")
-		user.drop_from_inventory(W, src)
+		user << "\blue You hide [W] in \the [src]."
+		user.drop_item()
+		W.loc = src
 		update()
 		return
 	else if(istype(W,/obj/item/weapon/reagent_containers/food/snacks))
-		user << SPAN_NOTICE("You layer [W] over \the [src].")
+		user << "\blue You layer [W] over \the [src]."
 		var/obj/item/weapon/reagent_containers/F = W
 		F.reagents.trans_to_obj(src, F.reagents.total_volume)
-		user.drop_from_inventory(W, src)
+		user.drop_item()
+		W.loc = src
 		ingredients += W
 		update()
 		return
@@ -79,9 +81,10 @@
 /obj/item/weapon/reagent_containers/food/snacks/csandwich/examine(mob/user)
 	..(user)
 	var/obj/item/O = pick(contents)
-	user << SPAN_NOTICE("You think you can see [O.name] in there.")
+	user << "\blue You think you can see [O.name] in there."
 
 /obj/item/weapon/reagent_containers/food/snacks/csandwich/attack(mob/M as mob, mob/user as mob, def_zone)
+
 	var/obj/item/shard
 	for(var/obj/item/O in contents)
 		if(istype(O,/obj/item/weapon/material/shard))
@@ -93,6 +96,6 @@
 		H = M
 
 	if(H && shard && M == user) //This needs a check for feeding the food to other people, but that could be abusable.
-		H << SPAN_WARNING("You lacerate your mouth on a [shard.name] in the sandwich!")
+		H << "\red You lacerate your mouth on a [shard.name] in the sandwich!"
 		H.adjustBruteLoss(5) //TODO: Target head if human.
 	..()

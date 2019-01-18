@@ -875,12 +875,13 @@ There are 9 wires.
 	src.add_fingerprint(user)
 
 	//Harm intent overrides other actions
-	if(src.density && user.a_intent == I_HURT && !I.GetIdCard())
+	if(src.density && user.a_intent == I_HURT && !istype(I, /obj/item/weapon/card))
 		hit(user, I)
 		return
 
 	var/tool_type = I.get_tool_type(user, list(QUALITY_PRYING, QUALITY_SCREW_DRIVING, QUALITY_WELDING))
 	switch(tool_type)
+
 		if(QUALITY_PRYING)
 			if(!repairing)
 				if(I.use_tool(user, src, WORKTIME_FAST, tool_type, FAILCHANCE_VERY_EASY,  required_stat = STAT_ROB))

@@ -15,3 +15,4 @@
 		icon_state = "jar"
 		name = "empty jar"
 		desc = "A jar. You're not sure what it's supposed to hold."
+		return
